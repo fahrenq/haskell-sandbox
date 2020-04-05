@@ -1,0 +1,21 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: ae182413ac071efd38cf2c644de8dcfe8944dff3d3ab1986820c02f1c8b76960
+
+name:           haskell-sandbox
+version:        0.0.0
+build-type:     Simple
+
+executable eller-maze-exe
+  main-is: EllerMaze.hs
+  other-modules:
+      Paths_haskell_sandbox
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , random
+  default-language: Haskell2010

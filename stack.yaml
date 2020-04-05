@@ -1,0 +1,5 @@
+resolver: ghc-8.8.2
+packages:
+  - .
+extra-deps:
+  - random-1.1@sha256:7b67624fd76ddf97c206de0801dc7e888097e9d572974be9b9ea6551d76965df,1777
