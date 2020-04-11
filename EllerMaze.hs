@@ -1,3 +1,6 @@
+-- That's my very first program in Haskell.
+-- I'm even kinda proud of it.
+
 module Main where
 
 import           Data.List
@@ -52,13 +55,6 @@ type Row' = [Cell']
 verticalWallChance = 50
 horizontalWallChance = 50
 
-sampleRow' :: Row'
-sampleRow' =
-  [ (Nothing , Cell { left = Just False, bottom = Just False })
-  , (Just 344, Cell { left = Just False, bottom = Just False })
-  , (Nothing , Cell { left = Just False, bottom = Just False })
-  ]
-
 assignUniqueSets :: Row' -> Row'
 assignUniqueSets row = snd $ mapAccumL
   (\x (set, cell) ->
@@ -68,7 +64,7 @@ assignUniqueSets row = snd $ mapAccumL
   row
  where
   sets        = mapMaybe fst row
-  nextUniqSet = if null sets then 0 else maximum sets + 1000 + 1
+  nextUniqSet = if null sets then 0 else maximum sets + 1
 
 verticalWallsF :: Row' -> (Bool, Cell') -> Row'
 verticalWallsF acc (rngAddWall, upRowCell')
@@ -118,10 +114,8 @@ horizontalWallsF rowWidth acc (rngAddWall, cell')
  where
   isLastCell        = length acc + 1 == rowWidth
   currentCellBottom = if isLastCell
-    then not (allHorizontalWallsForSet (fst cell') acc && rngAddWall)
+    then not (allHorizontalWallsForSet (fst cell') acc) && rngAddWall
     else rngAddWall
-
-
 
 preIteration =
   removeVerticalWalls >>> removeHorizontalWalls >>> assignUniqueSets
@@ -141,24 +135,23 @@ handleRow gen row =
   rngHorizontal                = randomRs (0 :: Int, 100 :: Int) horizontalGen
   rngHorizontalB               = map (<= horizontalWallChance) rngHorizontal
 
+verticalWallsLastRowF :: Row' -> Cell' -> Row'
+verticalWallsLastRowF acc upRowCell'
+  | null acc
+  = [(fst upRowCell', (snd upRowCell') { bottom = Nothing })]
+  | fst (last acc) /= fst upRowCell'
+  = acc ++ [(fst (last acc), Cell { bottom = Nothing, left = Just False })]
+  | otherwise
+  = acc ++ [(fst (last acc), (snd upRowCell') { bottom = Nothing })]
+
+handleLastRow :: Row' -> Row'
+handleLastRow = foldl verticalWallsLastRowF []
+
 firstRow :: Int -> Row'
 firstRow width =
   (Nothing, Cell { left = Nothing, bottom = Just False }) : replicate
     (width - 1)
     (Nothing, Cell { left = Just False, bottom = Just False })
-
-generateMaze :: Int -> Int -> StdGen -> [Row']
-generateMaze width height gen = snd $ foldl
-  (\(lgen, rows) _ ->
-    let (g1, g2) = split lgen
-    in  ( g1
-        , rows
-          ++ [handleRow g2 (if null rows then firstRow width else last rows)]
-        )
-  )
-  (gen, [])
-  [0 .. height]
-
 
 ec = Cell { left = Nothing, bottom = Nothing }
 
@@ -280,8 +273,30 @@ unitTests = defaultMain $ testGroup
         , (Just 11, Cell { left = Nothing, bottom = Just False })
         ]
     ]
+  , testGroup
+    "allHorizontalWallsForSet"
+    [ testCase "If no elements from set returns True"
+      $   allHorizontalWallsForSet (Just 15) [(Just 10, ec)]
+      @?= True
+    ]
   ]
 
+
+generateMaze :: Int -> Int -> StdGen -> [Row']
+generateMaze width height gen =
+  let
+    unfinishedMaze = snd $ foldl
+      (\(lgen, rows) _ ->
+        let (g1, g2) = split lgen
+        in
+          ( g1
+          , rows
+            ++ [handleRow g2 (if null rows then firstRow width else last rows)]
+          )
+      )
+      (gen, [])
+      [0 .. height]
+  in  (init unfinishedMaze ++ [handleLastRow (last unfinishedMaze)])
 
 cellToStr :: (Bool, Bool) -> String -- bottom, left
 cellToStr (True , True ) = "|__"
@@ -302,7 +317,6 @@ showMaze m = showMazeTopLine mazeWidth ++ "\n" ++ intercalate "\n"
                                                               (map showRow m)
   where mazeWidth = length $ head m
 
-
 main = do
   gen <- getStdGen
-  putStrLn (showMaze $ map (map snd) $ generateMaze 10 10 gen)
+  putStrLn (showMaze $ map (map snd) $ generateMaze 20 30 gen)
