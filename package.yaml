@@ -3,6 +3,8 @@ name: haskell-sandbox
 dependencies:
 - base >= 4.7 && < 5
 - random
+- tasty
+- tasty-hunit
 
 executables:
   eller-maze-exe:
@@ -11,3 +13,10 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+
+  # factorial-exe:
+  #   main: Factorial.hs
+  #   ghc-options:
+  #   - -threaded
+  #   - -rtsopts
+  #   - -with-rtsopts=-N

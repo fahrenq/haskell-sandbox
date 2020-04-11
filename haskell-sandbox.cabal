@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ae182413ac071efd38cf2c644de8dcfe8944dff3d3ab1986820c02f1c8b76960
+-- hash: 1a7ccc12019ad6c4506aac4feb999764ab67d8bf657742d5d70a722623936e9a
 
 name:           haskell-sandbox
 version:        0.0.0
@@ -18,4 +18,6 @@ executable eller-maze-exe
   build-depends:
       base >=4.7 && <5
     , random
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010

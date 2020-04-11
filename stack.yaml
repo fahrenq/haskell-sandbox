@@ -1,5 +1,6 @@
-resolver: ghc-8.8.2
+resolver: lts-15.7
 packages:
   - .
 extra-deps:
   - random-1.1@sha256:7b67624fd76ddf97c206de0801dc7e888097e9d572974be9b9ea6551d76965df,1777
+  - tasty-1.2.3@sha256:bba67074e5326d57e8f53fc1dabcb6841daa4dc51b053506eb7f40a6f49a0497,2517
