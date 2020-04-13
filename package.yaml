@@ -5,6 +5,7 @@ dependencies:
 - random
 - tasty
 - tasty-hunit
+- criterion
 
 executables:
   eller-maze-exe:
@@ -14,9 +15,9 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
 
-  # factorial-exe:
-  #   main: Factorial.hs
-  #   ghc-options:
-  #   - -threaded
-  #   - -rtsopts
-  #   - -with-rtsopts=-N
+  factorial-exe:
+    main: Factorial.hs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
