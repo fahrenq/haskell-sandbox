@@ -62,15 +62,7 @@ Infinite list:
   take 10 $! xs
 1 : xs evaluated to WHNF will still be 1 : xs since : is just a list constructor. Which means we’re actually doing nothing in this case with $! function. Important note here: (10 + 10) : xs evaluated to WHNF will still be (10 + 10) : xs, because expression is already is in WHNF and $! only considers expression as a whole but not parts of it, which is a common pitfall when doing fold using tuple as an accumulator, even if we strict-apply it, it always stays a tuple with big chains of operations as its elements.
 
-And types indeed don’t allow us to compose infinite lists using function application
-xs = [1] ++ [xs]
-• Occurs check: cannot construct the infinite type: a ~ [a]
-• In the expression: [1] ++ [xs]
-  In an equation for ‘xs’: xs = [1] ++ [xs]
-
-
-Thanks for sending me to this rabbit hole. Pretty interesting things. (edited)
-
+Thanks for sending me to this rabbit hole. Pretty interesting things.
 -}
 
 i = 10000000
