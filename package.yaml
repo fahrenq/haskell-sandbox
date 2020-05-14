@@ -6,6 +6,7 @@ dependencies:
 - tasty
 - tasty-hunit
 - criterion
+- scotty
 
 executables:
   eller-maze-exe:
@@ -24,6 +25,13 @@ executables:
 
   playground-exe:
     main: Playground.hs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+
+  simple-http-scotty-exe:
+    main: SimpleHttpScotty.hs
     ghc-options:
     - -threaded
     - -rtsopts
