@@ -13,4 +13,4 @@ main = scotty 3000 $ do
 
   get "/not/:word" $ do
     beam <- param "word"
-    html $ mconcat ["<h1>2 Scotty, ", beam, " me up!</h1>"]
+    html $ mconcat ["<h1>NOT: Scotty, ", beam, " me up!</h1>"]

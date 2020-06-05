@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3b583cdc6bdf4b2fde475f536a7354809fc3db791e40d3d518f21b799152b106
+-- hash: 556e856ffae4aff7a075724a14f24fb178dbaaea837b792cd23eca18e34daeb7
 
 name:           haskell-sandbox
 version:        0.0.0
@@ -32,6 +32,17 @@ executable factorial-exe
     , criterion
   default-language: Haskell2010
 
+executable office-blinds-control-exe
+  main-is: OfficeBlindsControl.hs
+  other-modules:
+      Paths_haskell_sandbox
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , parsec
+    , parser-combinators
+  default-language: Haskell2010
+
 executable playground-exe
   main-is: Playground.hs
   other-modules:
@@ -40,7 +51,6 @@ executable playground-exe
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
-
 
 executable simple-http-scotty-exe
   main-is: SimpleHttpScotty.hs

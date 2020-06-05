@@ -2,37 +2,50 @@ name: haskell-sandbox
 
 dependencies:
 - base >= 4.7 && < 5
-- random
-- tasty
-- tasty-hunit
-- criterion
-- scotty
 
 executables:
   eller-maze-exe:
     main: EllerMaze.hs
     ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - tasty
+      - tasty-hunit
+      - random
 
   factorial-exe:
     main: Factorial.hs
     ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - criterion
 
   playground-exe:
     main: Playground.hs
     ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
 
   simple-http-scotty-exe:
     main: SimpleHttpScotty.hs
     ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - scotty
+
+  office-blinds-control-exe:
+    main: OfficeBlindsControl.hs
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - parsec
+      - parser-combinators
