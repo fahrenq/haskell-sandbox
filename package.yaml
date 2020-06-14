@@ -40,12 +40,16 @@ executables:
     dependencies:
       - scotty
 
-  office-blinds-control-exe:
-    main: OfficeBlindsControl.hs
+  office-blinds-control-1-exe:
+    main: OfficeBlindsControl1/OfficeBlindsControl1.hs
     ghc-options:
       - -threaded
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
       - parsec
-      - parser-combinators
+      - websockets
+      - network
+      - text
+      - mtl
+      - case-insensitive

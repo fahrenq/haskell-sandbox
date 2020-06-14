@@ -1,26 +1,21 @@
 timescale=100
+
 0
   1 DOWN
   8 DOWN
-
-
-
-
 
 10
   2 DOWN
   7 DOWN
 
-
-
-
-
 20
   3 DOWN
   6 DOWN
+
 30
   4 DOWN
   5 DOWN
+
 40
   1 STOP
   4 UP
